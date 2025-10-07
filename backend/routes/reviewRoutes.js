@@ -1,0 +1,1 @@
+import express from 'express';import { addReview, getReviewsByListing } from '../controllers/reviewController.js';import { verifyToken } from '../middleware/authMiddleware.js';const router=express.Router();router.post('/',verifyToken,addReview);router.get('/:listing_id',getReviewsByListing);export default router;

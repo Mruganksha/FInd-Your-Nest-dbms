@@ -1,0 +1,1 @@
+import express from 'express';import { reportListing, getReports } from '../controllers/reportController.js';import { verifyToken } from '../middleware/authMiddleware.js';const router=express.Router();router.post('/',verifyToken,reportListing);router.get('/',getReports);export default router;
