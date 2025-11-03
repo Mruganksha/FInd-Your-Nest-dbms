@@ -1,4 +1,4 @@
-import { db } from "../config/db.js";
+import  db  from "../config/db.js";
 
 export const createBooking = (req, res) => {
   const { listing_id, check_in_date, check_out_date } = req.body;

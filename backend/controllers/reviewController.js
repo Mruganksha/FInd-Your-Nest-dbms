@@ -1,4 +1,4 @@
-import { db } from "../config/db.js";
+import  db  from "../config/db.js";
 
 export const addReview = (req, res) => {
   const { listing_id, rating, comment } = req.body;
