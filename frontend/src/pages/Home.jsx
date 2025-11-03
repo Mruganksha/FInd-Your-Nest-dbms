@@ -20,6 +20,7 @@ function LoadingGrid({ count = 6 }) {
 export default function Home(){
   const [listings, setListings] = useState([])
   const [loading, setLoading] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   const fetchListings = async (params) => {
     setLoading(true)
@@ -52,6 +53,9 @@ export default function Home(){
   const handleWishlist = async (id) => {
     try {
       await api.addWishlist(id)
+      // notify other parts of the app (Dashboard) that wishlist changed
+      try { localStorage.setItem('wishlist_last_updated', Date.now().toString()) } catch (e) {}
+      try { window.dispatchEvent(new CustomEvent('wishlist:updated')) } catch (e) {}
       alert('Added to wishlist')
     } catch (err) {
       alert(err?.message || 'Failed to add')
@@ -72,30 +76,32 @@ export default function Home(){
           </div>
 
           <div className="w-full md:w-96">
-  <div className="bg-white p-3 rounded shadow-sm">
-    <input
-      type="search"
-      placeholder="Search by city, locality or landmark"
-      className="w-full px-3 py-2 rounded outline-none text-sm text-black border border-gray-200 focus:border-gray-400 transition"
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') fetchListings({ q: e.target.value })
-      }}
-    />
-    <div className="mt-3 flex gap-2">
-      <button
-        onClick={() => fetchListings()}
-        className="flex-1 px-3 py-2 bg-indigo-600 text-white rounded text-sm hover:bg-indigo-700"
-      >
-        Search
-      </button>
-      <button
-        onClick={() => { setListings([]); fetchListings() }}
-        className="px-3 py-2 bg-gray-100 text-black text-sm rounded hover:bg-gray-200 transition"
-      >
-        Reset
-      </button>
+    <div className="bg-white p-3 rounded shadow-sm">
+      <input
+        type="search"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        placeholder="Search by city, locality or landmark"
+        className="w-full px-3 py-2 rounded outline-none text-sm text-black border border-gray-200 focus:border-gray-400 transition"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') fetchListings({ q: searchQuery })
+        }}
+      />
+      <div className="mt-3 flex gap-2">
+        <button
+          onClick={() => fetchListings({ q: searchQuery })}
+          className="flex-1 px-3 py-2 bg-indigo-600 text-white rounded text-sm hover:bg-indigo-700"
+        >
+          Search
+        </button>
+        <button
+          onClick={() => { setSearchQuery(''); setListings([]); fetchListings() }}
+          className="px-3 py-2 bg-gray-100 text-black text-sm rounded hover:bg-gray-200 transition"
+        >
+          Reset
+        </button>
+      </div>
     </div>
-  </div>
 </div>
 
         </div>

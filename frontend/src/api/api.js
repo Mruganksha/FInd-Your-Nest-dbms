@@ -47,6 +47,23 @@ client.interceptors.response.use(
   }
 )
 
+// Request interceptor: attach Authorization header when token is present
+client.interceptors.request.use(
+  (config) => {
+    try {
+      const token = localStorage.getItem('token')
+      if (token) {
+        config.headers = config.headers || {}
+        config.headers.Authorization = `Bearer ${token}`
+      }
+    } catch (e) {
+      // ignore (e.g., during SSR)
+    }
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
 // API wrapper - use mock when requested (mockApi should return same shapes)
 const apiReal = {
   login: (data) => client.post('/users/login', data).then(r => r.data),
@@ -56,9 +73,13 @@ const apiReal = {
   getListings: (params) => client.get('/listings', { params }).then(r => r.data),
   getListingById: (id) => client.get(`/listings/${id}`).then(r => r.data),
 
-  // wishlist - send { id } to match frontend callers
-  addWishlist: (id) => client.post('/wishlist', { id }).then(r => r.data),
+  // wishlist - send { listing_id } to match backend expectation
+  addWishlist: (id) => client.post('/wishlist', { listing_id: id }).then(r => r.data),
   getWishlist: () => client.get('/wishlist').then(r => r.data),
+  removeWishlist: (id) => client.delete(`/wishlist/${id}`).then(r => r.data),
+  // bookings
+  createBooking: (payload) => client.post('/bookings', payload).then(r => r.data),
+  getBookings: () => client.get('/bookings').then(r => r.data),
 }
 
 const api = useMock ? mockApi : apiReal

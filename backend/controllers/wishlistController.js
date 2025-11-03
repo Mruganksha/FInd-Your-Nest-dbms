@@ -20,3 +20,14 @@ export const getWishlist = (req, res) => {
     res.json(data);
   });
 };
+
+export const removeWishlist = (req, res) => {
+  const user_id = req.user.id;
+  const listing_id = req.params.id;
+  const sql = "DELETE FROM WISHLIST WHERE user_id = ? AND listing_id = ?";
+  db.query(sql, [user_id, listing_id], (err, result) => {
+    if (err) return res.status(500).json({ error: err });
+    if (result.affectedRows === 0) return res.status(404).json({ message: 'Not found' });
+    res.json({ message: 'Removed from wishlist' });
+  });
+};

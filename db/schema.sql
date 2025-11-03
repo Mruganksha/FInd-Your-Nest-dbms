@@ -105,7 +105,27 @@ CREATE TABLE `listing` (
 
 LOCK TABLES `listing` WRITE;
 /*!40000 ALTER TABLE `listing` DISABLE KEYS */;
-INSERT INTO `listing` VALUES (5,3,'Sunny PG','123 MG Road','Pune',8000.00,'Female','9876543210',1,18.520400,73.856700,5,'2025-10-24 12:42:01'),(6,3,'Comfort Hostel','456 FC Road','Pune',6000.00,'Co-ed','9876543211',1,18.516700,73.856300,8,'2025-10-24 12:42:01');
+INSERT INTO `listing` VALUES (5,3,'Sunny PG','123 MG Road','Pune',8000.00,'Female','9876543210',1,18.520400,73.856700,5,'2025-10-24 12:42:01'),(6,3,'Comfort Hostel','456 FC Road','Pune',6000.00,'Co-ed','9876543211',1,18.516700,73.856300,8,'2025-10-24 12:42:01'),
+(3, 'GreenStay Ladies PG', '12 FC Road', 'Pune', 7000.00, 'Female', '9876500001', 1, 18.520300, 73.856800, 6),
+(3, 'Metro Boys Hostel', '89 Andheri West', 'Mumbai', 8500.00, 'Male', '9876500002', 1, 19.113600, 72.869700, 10),
+(3, 'Elite Co-Living Space', '44 Indiranagar', 'Bangalore', 9500.00, 'Co-ed', '9876500003', 1, 12.971600, 77.594600, 12),
+(3, 'StudyHub PG', '201 Karol Bagh', 'Delhi', 6000.00, 'Male', '9876500004', 0, 28.651700, 77.222300, 8),
+(3, 'Comfort Nest Girls Hostel', '55 Banjara Hills', 'Hyderabad', 7500.00, 'Female', '9876500005', 1, 17.385000, 78.486700, 5),
+(3, 'Skyline PG', '9 T Nagar', 'Chennai', 5500.00, 'Co-ed', '9876500006', 0, 13.082700, 80.270700, 15),
+(3, 'Peace Stay Boys PG', '77 Senapati Bapat Road', 'Pune', 5000.00, 'Male', '9876500007', 1, 18.520500, 73.855800, 4),
+(3, 'Urban Stay Co-Living', '102 Bandra East', 'Mumbai', 6800.00, 'Co-ed', '9876500008', 1, 19.059500, 72.829500, 9),
+(3, 'Heritage Girls PG', '31 MI Road', 'Jaipur', 6200.00, 'Female', '9876500009', 1, 26.912400, 75.787300, 7),
+(3, 'TechNest PG', '88 Hinjewadi Phase 1', 'Pune', 9000.00, 'Co-ed', '9876500010', 1, 18.597200, 73.732600, 11),
+(3, 'Student Stay PG', '14 Navrangpura', 'Ahmedabad', 5800.00, 'Co-ed', '9876500011', 1, 23.022500, 72.571400, 10),
+(3, 'BrightNest Boys Hostel', '21 Salt Lake Sector 5', 'Kolkata', 6200.00, 'Male', '9876500012', 0, 22.572600, 88.363900, 7),
+(3, 'SkyView Girls PG', '7 HSR Layout', 'Bangalore', 8200.00, 'Female', '9876500013', 1, 12.912100, 77.644600, 6),
+(3, 'YouthConnect PG', '33 Connaught Place', 'Delhi', 7000.00, 'Co-ed', '9876500014', 1, 28.630400, 77.217700, 12),
+(3, 'Campus Corner Hostel', '12 Camp Area', 'Pune', 6500.00, 'Male', '9876500015', 0, 18.520600, 73.857000, 9),
+(3, 'Friendly Homes PG', '96 BTM Layout', 'Bangalore', 7800.00, 'Co-ed', '9876500016', 1, 12.916600, 77.610100, 11),
+(3, 'CityComfort Girls Stay', '19 Charminar Street', 'Hyderabad', 7200.00, 'Female', '9876500017', 1, 17.361600, 78.474700, 8),
+(3, 'Hostel Prime', '5 Civil Lines', 'Jaipur', 5600.00, 'Male', '9876500018', 0, 26.912300, 75.786900, 6),
+(3, 'Metro CoLiving Hub', 'BTM 2nd Stage', 'Bangalore', 9800.00, 'Co-ed', '9876500019', 1, 12.915600, 77.609100, 15),
+(3, 'Oxygen PG', 'Bhandarkar Road', 'Pune', 8900.00, 'Female', '9876500020', 1, 18.514900, 73.840200, 10);
 /*!40000 ALTER TABLE `listing` ENABLE KEYS */;
 UNLOCK TABLES;
 

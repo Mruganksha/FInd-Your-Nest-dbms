@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import ListingDetails from './pages/ListingDetails'
 import Dashboard from './pages/Dashboard'
+import Profile from './pages/Profile'
 import Navbar from './components/Navbar'
 
 export default function App(){
@@ -18,6 +19,7 @@ export default function App(){
           <Route path="/register" element={<Register />} />
           <Route path="/listing/:id" element={<ListingDetails />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<Navigate to='/' />} />
         </Routes>
       </main>

@@ -42,6 +42,13 @@ export default function ListingCard({ listing, onWishlist }) {
             <h3 className="text-md font-semibold text-gray-800 truncate">{listing.name ?? 'Listing'}</h3>
             <p className="text-xs text-gray-500 mt-1 truncate">{listing.address ?? listing.location ?? ''}</p>
           </div>
+          <div className="text-right">
+            {listing.avg_rating ? (
+              <div className="text-sm text-yellow-500">{'★'.repeat(Math.round(listing.avg_rating))} <span className="text-xs text-gray-500">({listing.review_count ?? 0})</span></div>
+            ) : (
+              <div className="text-xs text-gray-400">No reviews</div>
+            )}
+          </div>
 
           <div className="text-right">
             <div className="text-lg font-bold text-indigo-600">₹{typeof rent === 'number' ? rent.toLocaleString() : rent}</div>

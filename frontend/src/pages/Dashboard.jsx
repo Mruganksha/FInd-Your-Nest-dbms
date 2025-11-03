@@ -33,6 +33,22 @@ export default function Dashboard(){
 
   useEffect(()=>{ fetchWishlist() }, [])
 
+  // refresh when wishlist is updated elsewhere in the app
+  useEffect(() => {
+    const onUpdate = () => fetchWishlist()
+    // custom event within same tab
+    window.addEventListener('wishlist:updated', onUpdate)
+    // storage event for other tabs/windows
+    const onStorage = (e) => {
+      if (e.key === 'wishlist_last_updated') fetchWishlist()
+    }
+    window.addEventListener('storage', onStorage)
+    return () => {
+      window.removeEventListener('wishlist:updated', onUpdate)
+      window.removeEventListener('storage', onStorage)
+    }
+  }, [])
+
   const handleRemove = async (id) => {
     const prev = wishlist
     setWishlist(prev.filter(i => (i.listing_id || i.id || i._id) !== id))
@@ -40,6 +56,9 @@ export default function Dashboard(){
     try {
       if (api.removeWishlist) {
         await api.removeWishlist(id)
+        // notify other parts of the app that wishlist changed
+        try { localStorage.setItem('wishlist_last_updated', Date.now().toString()) } catch (e) {}
+        try { window.dispatchEvent(new CustomEvent('wishlist:updated')) } catch (e) {}
       } else {
         // if backend endpoint not implemented, keep optimistic change
         console.info('removeWishlist API not found — change persisted locally only')

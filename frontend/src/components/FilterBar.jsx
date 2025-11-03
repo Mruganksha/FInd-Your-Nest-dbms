@@ -5,6 +5,7 @@ export default function FilterBar({ onFilter }) {
   const [minRent, setMinRent] = useState('')
   const [maxRent, setMaxRent] = useState('')
   const [sort, setSort] = useState('relevance')
+  const [gender, setGender] = useState('')
 
   const apply = (e) => {
     e.preventDefault()
@@ -12,7 +13,8 @@ export default function FilterBar({ onFilter }) {
       city: city.trim() || undefined,
       minRent: minRent ? Number(minRent) : undefined,
       maxRent: maxRent ? Number(maxRent) : undefined,
-      sort
+      sort,
+      gender: gender || undefined
     })
   }
 
@@ -21,6 +23,7 @@ export default function FilterBar({ onFilter }) {
     setMinRent('')
     setMaxRent('')
     setSort('relevance')
+    setGender('')
     onFilter && onFilter({})
   }
 
@@ -67,6 +70,16 @@ export default function FilterBar({ onFilter }) {
             <option value="relevance">Relevance</option>
             <option value="price_asc">Price: Low to High</option>
             <option value="price_desc">Price: High to Low</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="text-xs text-gray-600">Gender</label>
+          <select value={gender} onChange={e => setGender(e.target.value)} className="p-2 border rounded bg-white">
+            <option value="">Any</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Co-ed">Co-ed</option>
           </select>
         </div>
 
