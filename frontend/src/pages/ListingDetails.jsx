@@ -12,6 +12,9 @@ export default function ListingDetails(){
   const [checkOut, setCheckOut] = useState('')
   const [bookingResult, setBookingResult] = useState(null)
   const [submitting, setSubmitting] = useState(false)
+  const [rating, setRating] = useState(5)
+  const [comment, setComment] = useState('')
+  const [reviewSubmitting, setReviewSubmitting] = useState(false)
 
   useEffect(()=>{
     let mounted = true
@@ -87,6 +90,39 @@ export default function ListingDetails(){
                 </div>
               </div>
             )}
+
+            {/* review form */}
+            <div className="mt-4 border-t pt-4">
+              <h3 className="text-sm font-medium text-gray-700 mb-2">Leave a review</h3>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center">
+                  {[1,2,3,4,5].map(s => (
+                    <button key={s} type="button" onClick={() => setRating(s)} className={`text-2xl ${s <= rating ? 'text-yellow-500' : 'text-gray-300'}`}>★</button>
+                  ))}
+                </div>
+                <div className="flex-1">
+                  <textarea value={comment} onChange={e=>setComment(e.target.value)} placeholder="Write a short review" className="w-full p-2 border rounded" />
+                </div>
+                <div>
+                  <button onClick={async () => {
+                    if (!localStorage.getItem('token')) return alert('Please login to post a review')
+                    if (!comment.trim()) return alert('Please write a comment')
+                    setReviewSubmitting(true)
+                    try {
+                      const res = await api.addReview({ listing_id: id, rating, comment })
+                      const newReview = res.review || res
+                      // prepend to listing reviews
+                      setListing(prev => ({ ...prev, reviews: [newReview].concat(prev.reviews || []) }))
+                      setComment('')
+                      setRating(5)
+                      alert('Review posted')
+                    } catch (err) {
+                      alert(err?.message || 'Failed to post review')
+                    } finally { setReviewSubmitting(false) }
+                  }} className="px-3 py-2 bg-indigo-600 text-white rounded" disabled={reviewSubmitting}>{reviewSubmitting ? 'Posting...' : 'Post'}</button>
+                </div>
+              </div>
+            </div>
 
             {listing.reviews && listing.reviews.length > 0 && (
               <div className="mt-4">

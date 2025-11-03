@@ -7,6 +7,10 @@ export default function Register(){
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('Student')
+  const [phone, setPhone] = useState('')
+  const [gender, setGender] = useState('')
+  const [collegeName, setCollegeName] = useState('')
+  const [age, setAge] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const navigate = useNavigate()
@@ -20,7 +24,7 @@ export default function Register(){
     }
     setLoading(true)
     try {
-      await api.register({ name, email, password, role })
+      await api.register({ name, email, password, role, phone, gender, college_name: collegeName, age: age ? Number(age) : null })
       navigate('/login')
     } catch (err) {
       console.error(err)
@@ -80,6 +84,47 @@ export default function Register(){
               <option>Student</option>
               <option>Owner</option>
             </select>
+          </label>
+
+          <label className="block">
+            <span className="text-xs text-gray-600">Phone</span>
+            <input
+              value={phone}
+              onChange={e=>setPhone(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border rounded focus:ring-1 focus:ring-indigo-300"
+              placeholder="Phone number"
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-xs text-gray-600">Gender</span>
+            <select value={gender} onChange={e=>setGender(e.target.value)} className="mt-1 block w-full px-3 py-2 border rounded">
+              <option value="">Prefer not to say</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+
+          <label className="block">
+            <span className="text-xs text-gray-600">College / Institution</span>
+            <input
+              value={collegeName}
+              onChange={e=>setCollegeName(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border rounded focus:ring-1 focus:ring-indigo-300"
+              placeholder="College or Institution"
+            />
+          </label>
+
+          <label className="block">
+            <span className="text-xs text-gray-600">Age</span>
+            <input
+              type="number"
+              value={age}
+              onChange={e=>setAge(e.target.value)}
+              className="mt-1 block w-full px-3 py-2 border rounded focus:ring-1 focus:ring-indigo-300"
+              placeholder="Age"
+            />
           </label>
 
           <button

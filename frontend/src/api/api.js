@@ -68,6 +68,8 @@ client.interceptors.request.use(
 const apiReal = {
   login: (data) => client.post('/users/login', data).then(r => r.data),
   register: (data) => client.post('/users/register', data).then(r => r.data),
+  getProfile: () => client.get('/users/me').then(r => r.data),
+  updateProfile: (data) => client.put('/users/me', data).then(r => r.data),
 
   // listings
   getListings: (params) => client.get('/listings', { params }).then(r => r.data),
@@ -80,6 +82,9 @@ const apiReal = {
   // bookings
   createBooking: (payload) => client.post('/bookings', payload).then(r => r.data),
   getBookings: () => client.get('/bookings').then(r => r.data),
+  // reviews
+  addReview: (payload) => client.post('/reviews', payload).then(r => r.data),
+  getReviewsByListing: (listingId) => client.get(`/reviews/${listingId}`).then(r => r.data),
 }
 
 const api = useMock ? mockApi : apiReal

@@ -269,6 +269,7 @@ CREATE TABLE `user` (
   `role` enum('Student','Owner') NOT NULL,
   `gender` enum('Male','Female','Other') DEFAULT NULL,
   `college_name` varchar(100) DEFAULT NULL,
+  `age` int DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
@@ -281,7 +282,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Alice Johnson','alice@student.com','hashed_password_here',NULL,'Student','Female','COEP','2025-10-24 12:41:49'),(2,'Bob Smith','bob@student.com','hashed_password_here',NULL,'Student','Male','MIT','2025-10-24 12:41:49'),(3,'Charlie Owner','charlie@hostel.com','hashed_password_here',NULL,'Owner','Male','','2025-10-24 12:41:49');
+INSERT INTO `user` VALUES (1,'Alice Johnson','alice@student.com','hashed_password_here',NULL,'Student','Female','COEP',NULL,'2025-10-24 12:41:49'),(2,'Bob Smith','bob@student.com','hashed_password_here',NULL,'Student','Male','MIT',NULL,'2025-10-24 12:41:49'),(3,'Charlie Owner','charlie@hostel.com','hashed_password_here',NULL,'Owner','Male','',NULL,'2025-10-24 12:41:49');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
