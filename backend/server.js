@@ -10,6 +10,14 @@ import bookingRoutes from "./routes/bookingRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 
 dotenv.config();
+db.getConnection((err, connection) => {
+  if (err) {
+    console.error("Database connection failed:", err.message);
+  } else {
+    console.log("Connected to MySQL database");
+    connection.release();
+  }
+});
 
 const app = express();
 app.use(cors());

@@ -1,7 +1,7 @@
 import  db  from "../config/db.js";
 
 export const getAllListings = (req, res) => {
-  const sql = "SELECT * FROM LISTING";
+  const sql = "SELECT * FROM listing";
   db.query(sql, (err, data) => {
     if (err) return res.status(500).json({ error: err });
     res.json(data);
