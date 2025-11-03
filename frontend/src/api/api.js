@@ -2,8 +2,9 @@ import axios from 'axios'
 import mockApi from './mockApi'
 
 const useMock = import.meta.env.VITE_USE_MOCK === 'true'
-// default to /api so Vite dev proxy works; override with VITE_API_BASE_URL for production builds
-const baseURL = import.meta.env.VITE_API_BASE_URL ?? '/api'
+
+// 🔧 Hardcoded backend base URL:
+const baseURL = 'http://localhost:5000/api'
 
 const client = axios.create({
   baseURL: baseURL,
@@ -14,7 +15,15 @@ const client = axios.create({
   },
 })
 
-// Response interceptor: ensure we got JSON (helps catch when dev server returns index.html)
+client.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
+// Response interceptor: ensure we got JSON
 client.interceptors.response.use(
   (response) => {
     const ct = response.headers?.['content-type'] || ''
@@ -25,17 +34,14 @@ client.interceptors.response.use(
     return response
   },
   (error) => {
-    // Normalize errors for callers
     if (error.response) {
       const ct = error.response.headers?.['content-type'] || ''
       let message = ''
       if (ct.includes('application/json') && error.response.data) {
-        // server returned JSON error body
         if (typeof error.response.data === 'string') message = error.response.data
         else if (error.response.data.message) message = error.response.data.message
         else message = JSON.stringify(error.response.data)
       } else if (typeof error.response.data === 'string') {
-        // got HTML or plain text (likely index.html); include small preview
         message = error.response.data.slice(0, 300)
       } else {
         message = `Request failed with status ${error.response.status}`
@@ -47,7 +53,7 @@ client.interceptors.response.use(
   }
 )
 
-// API wrapper - use mock when requested (mockApi should return same shapes)
+// API wrapper
 const apiReal = {
   login: (data) => client.post('/users/login', data).then(r => r.data),
   register: (data) => client.post('/users/register', data).then(r => r.data),
@@ -56,8 +62,8 @@ const apiReal = {
   getListings: (params) => client.get('/listings', { params }).then(r => r.data),
   getListingById: (id) => client.get(`/listings/${id}`).then(r => r.data),
 
-  // wishlist - send { id } to match frontend callers
-  addWishlist: (id) => client.post('/wishlist', { id }).then(r => r.data),
+  // wishlist
+  addWishlist: (listing_id) => client.post('/wishlist', { listing_id }).then(r => r.data),
   getWishlist: () => client.get('/wishlist').then(r => r.data),
 }
 
