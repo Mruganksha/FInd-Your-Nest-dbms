@@ -85,6 +85,15 @@ const apiReal = {
   // reviews
   addReview: (payload) => client.post('/reviews', payload).then(r => r.data),
   getReviewsByListing: (listingId) => client.get(`/reviews/${listingId}`).then(r => r.data),
+
+    // reports
+  addReport: (payload) => client.post('/reports', payload).then(r => r.data),
+
+  // roommates
+getRoommates: (params) => client.get('/roommates', { params }).then(r => r.data),
+getMyRoommateProfile: () => client.get('/roommates/me').then(r => r.data),
+saveRoommateProfile: (payload) => client.post('/roommates', payload).then(r => r.data),
+
 }
 
 const api = useMock ? mockApi : apiReal

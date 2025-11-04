@@ -7,6 +7,7 @@ import ListingDetails from './pages/ListingDetails'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import Navbar from './components/Navbar'
+import Roommates from './pages/Roommates'
 
 export default function App(){
   return (
@@ -21,6 +22,7 @@ export default function App(){
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<Navigate to='/' />} />
+          <Route path="/roommates" element={<Roommates />} />
         </Routes>
       </main>
     </div>

@@ -45,6 +45,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className="text-gray-700 hover:text-indigo-600">Home</Link>
           <Link to="/dashboard" className="text-gray-700 hover:text-indigo-600">Dashboard</Link>
+          <Link to="/roommates" className="hover:underline">Roommates</Link>
         </div>
 
         <div className="flex items-center gap-3">

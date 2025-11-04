@@ -18,3 +18,14 @@ export const getReports = (req, res) => {
     res.json(data);
   });
 };
+
+
+export const getReportsByListing = (req, res) => {
+  const { listing_id } = req.params;
+  const sql = "SELECT * FROM REPORT WHERE listing_id = ? ORDER BY report_date DESC";
+
+  db.query(sql, [listing_id], (err, data) => {
+    if (err) return res.status(500).json({ error: err });
+    res.json(data);
+  });
+};

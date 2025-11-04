@@ -8,6 +8,7 @@ import reviewRoutes from "./routes/reviewRoutes.js";
 import wishlistRoutes from "./routes/wishlistRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
+import roommateRoutes from './routes/roommateRoutes.js';
 
 dotenv.config();
 db.getConnection((err, connection) => {
@@ -38,6 +39,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/reports", reportRoutes);
+app.use('/api/roommates', roommateRoutes);
 
 app.use((req, res) => res.status(404).json({ error: "Not found" }));
 app.use((err, req, res, next) => {
